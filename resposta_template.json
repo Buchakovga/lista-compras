@@ -1,0 +1,27 @@
+[
+  {
+    "dt_compra": "2026-08-13",
+    "produto": "Cerveja",
+    "valor": 25.84
+  },
+  {
+    "dt_compra": "2026-08-13",
+    "produto": "Cerveja",
+    "valor": 22.96
+  },
+  {
+    "dt_compra": "2026-08-13",
+    "produto": "Impresso",
+    "valor": 0.68
+  },
+  {
+    "dt_compra": "2026-08-13",
+    "produto": "Impresso",
+    "valor": 0.68
+  },
+  {
+    "dt_compra": "2026-08-13",
+    "produto": "Cerveja",
+    "valor": 9.67
+  }
+]
