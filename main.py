@@ -6,14 +6,39 @@ import streamlit as st
 import pandas as pd 
 import sqlalchemy
 import datetime
+import json
+from gen_ia import generate
+import os
+import dotenv
+import codecs
 
+
+dotenv.load_dotenv()
 
 
 engine = sqlalchemy.create_engine("sqlite:///database.db")
 
 
-with open("query_inteligente.sql") as quere_file:
-    query = quere_file.read()
+with open("query_inteligente.sql") as query_file:
+    query = query_file.read()
+
+with open("promtp_template.md", encoding="utf-8") as prompt_file:
+    prompt = prompt_file.read()
+
+
+with open("resposta_template.json") as resposta_file:
+    resposta = json.load(resposta_file)
+
+
+def processa_nf(prompt, resposta_template, produtos, img_file ):
+    st.image(open_img)
+
+    prompt_exec =prompt.format(produtos="\n".join(produtos) , respostas=resposta_template)   
+    resp = generate(prompt_exec, 
+                    img_file.getvalue(),
+                    img_file.type)
+    df = pd.DataFrame(json.loads(resp.text))
+    return df 
 
 
 st.set_page_config(page_title="Lista de Compras")
@@ -86,3 +111,11 @@ if open_file:
         st.success("Dados Registrados com sucesso!")
         
 
+st.markdown("## Importar Nota Fistal")
+
+open_img = st.file_uploader("Entre com o arquivo de imagem", type=["png","jpeg"])
+
+if open_img:
+    df = processa_nf(prompt=prompt, resposta_template=resposta, produtos=produtos, img_file=open_img)
+    st.data_editor(df)
+    
